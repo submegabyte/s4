@@ -11,6 +11,7 @@ def hippo_LagT(n, k):
         return -0.5
     return -1
 
+## rank = 1
 def hippo_LegS(n, k):
     if n > k:
         return -(2*n+1)**0.5 * (2*k+1)**0.5
@@ -22,10 +23,3 @@ def hippo_LegT(n, k):
     if n >= k:
         return -1
     return -(-1)**(n+k)
-
-## NPLR: Normal Plus Low Rank
-
-## A = V @ lambda @ V* - P @ Q.T
-
-## V is a unitary matrix (theorem 1)
-## V @ V* == V* @ V == 1

@@ -1,0 +1,31 @@
+### NPLR: Normal Plus Low Rank
+A = V @ lambda @ V* - P @ Q.T
+V is a unitary matrix (theorem 1)
+V @ V* == V* @ V == 1
+
+### DPLR: Diagonal Plus Low Rank
+A = lambda - P @ Q.T
+V = I
+
+https://iclr-blog-track.github.io/2022/03/25/annotated-s4/#turning-hippo-to-dplr\
+HiPPO matrices are NPLR but not DPLR.
+
+NPLR to DPLR
+
+A
+= V Lambda V* - P Q*
+= V Lambda V* - V V* P Q* V V*
+= V Lambda V* - V (V* P Q* V) V*
+= V (Lambda - V* P Q* V) V*
+= V (Lambda - (V* P) (Q* V) ) V*
+= V (Lambda - (V* P) (V* Q)* ) V*
+= V A_dplr V*
+
+where 
+A_dplr = Lambda - P_dplr Q_diag*
+P_dplr = V* P
+Q_dplr = V* Q
+
+A is NPLR (not DPLR) while A_diag is DPLR (hence NPLR)
+
+DPLR implies NPLR

@@ -1,0 +1,22 @@
+https://arxiv.org/pdf/2111.00396
+
+Idea/Reduction 0
+A, Ad can always be written diagonal + low rank
+
+Idea 1
+Convert the kernel from
+time domain (ssmConv)
+to frequency domain (ssmGen)
+Also Lemma C.2
+fft(ssmConv) = ssmGen
+ifft(ssmGen) = ssmConv
+
+Idea 2
+Woodbury Correction
+ssmGen(diagonal + low rank) -> ssmGen(diagonal)
+
+Idea 3
+Cauchy Kernel
+ssmGen(diagonal) == Cauchy Kernel problem
+gives FLOPs complexity
+FlOPS = Floating Point Operations

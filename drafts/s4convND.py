@@ -1,7 +1,7 @@
 ## https://arxiv.org/pdf/2111.00396
-## section C.1
+## section C.3
 
-## recurrence representation
+## Convolution representation
 
 import torch 
 import torch.nn as nn
@@ -9,22 +9,15 @@ import torch.nn as nn
 ## p-D input signal
 ## N-D latent state
 ## p-D output signal
-class S4Recurrent(nn.Module):
+class S4Conv(nn.Module):
     def __init__(self, N=3, p=64, delta=1):
         super().__init__()
 
-        ## Theorem 1
-        ## NPLR (Normal Plus Low Rank)
-        ## DPLR (Diagonal Plus Low Rank)
-        ## A = Lambda - P Q*
-        ## where
-        ## A, Lambda: N x N
-        ## P, Q: N x r
-        ## r is the rank, can be 1 or 2
+        ## changes to s4recurrent from C.3
         Lambda = nn.Parameter(torch.randn(N, N)) ## N x N
         r = 1
-        P = nn.Parameter(torch.randn(N, r))
-        Q = nn.Parameter(torch.randn(N, r))
+        P = nn.Parameter(torch.randn(N, p))
+        Q = nn.Parameter(torch.randn(N, p))
 
         ## must be set to a hippo matrix
         ## for our purposes, we omit that
@@ -32,7 +25,13 @@ class S4Recurrent(nn.Module):
 
 
         self.B = nn.Parameter(torch.randn(N, p)) ## N x p
-        self.C = nn.Parameter(torch.randn(p, N)) ## p x N
+
+        ## C is now its transposed conjugate
+        ## B, C, P, Q have the same shape (N, p)
+        # self.C = nn.Parameter(torch.randn(p, N)) ## p x N
+        self.C = nn.Parameter(torch.randn(N, pp)) ## N x p
+
+
         self.D = 0 ## skip connection
         self.N = N ## state size
         self.p = p ## embedding length

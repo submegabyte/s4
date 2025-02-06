@@ -1,0 +1,6 @@
+### Complex roots of unity
+
+Euler's formula (?)
+https://en.wikipedia.org/wiki/Euler's_formula
+
+e^ix = cos x + i sin x

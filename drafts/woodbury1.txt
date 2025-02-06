@@ -1,0 +1,48 @@
+### Woodbury identity
+
+aka Binomial Inverse Theorem
+
+inv(A + U V*) = inv(A) - inv(A) U inv(G) V* inv(A)
+
+where G = I + V* inv(A) U
+
+-----------
+
+https://arxiv.org/pdf/2111.00396
+Reduction 2
+
+Convert ssmGen(Diagonal + Low Rank) to ssmGen(Diagonal)
+
+A is diagonal
+A + U V* is DPLR
+
+Diagonal inverse inv(A) is efficiently computable.
+
+----------------
+
+Can Woodbury be extended to NPLR?
+
+Let's change the variables
+
+A = V* L V - P Q* is NPLR
+
+where
+L = diagonal matrix
+P, Q = low rank matrices
+V = unitary matrix ------ V* V = V V* = I
+
+A
+= V L V* - P Q*
+= V A_dplr V*
+
+where A_dplr = L - P_dplr Q_dplr*
+from hippo1.txt
+
+inv(A) 
+= inv(V A_dplr V*)
+= inv(V*) inv(A_dplr) inv(V)
+= V inv(A_dplr) V*
+
+which leads to the theorem again.
+
+So the answer is yes.
