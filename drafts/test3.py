@@ -29,11 +29,14 @@ class S4Convolution(torch.nn.Module):
         A_disc = self.Lambda - self.P @ self.Q.conj().T
         
         # Compute the generating function in the frequency domain
-        omega = torch.exp(2j * torch.pi * torch.arange(self.L) / self.L)  # FFT roots of unity
-        C_tilde = (torch.eye(self.N) - A_disc**self.L).conj().T @ self.C  # Truncated generating function
+        C_tilde = (torch.eye(self.N, self.L) - A_disc[:,:self.L]).conj().T @ self.C  # Truncated generating function
 
         # Compute the Cauchy kernel inversion using Woodbury identity
-        K_hat = (C_tilde / (1 - omega[None, :] @ self.Lambda[:, None])).sum(dim=0)
+        # K_hat = (C_tilde / (1 - omega[None, :] @ self.Lambda[:, None])).sum(dim=0)
+
+        ## Black box Cauchy kernel
+        omega = torch.exp(2j * torch.pi * torch.arange(self.L) / self.L)  # FFT roots of unity
+        k_omega = (C_tilde @ self.Q).conj().T @ torch.inverse(2/step_size * (1-omega)/(1+omega) - self.Lambda)
 
         # Convert back to time domain using Inverse FFT
         K = torch.fft.ifft(K_hat).real
