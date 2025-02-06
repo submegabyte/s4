@@ -1,4 +1,5 @@
 ## https://chatgpt.com/share/67a445f5-d0b0-800c-b5a7-4b9c169a3b0b
+
 import torch
 
 def lambda_pq_decomposition(A, rank):

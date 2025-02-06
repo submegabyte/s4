@@ -22,6 +22,8 @@ def hippo_matrix(N):
 
     return A
 
+## A = Lambda - P Q*
+## dplr.py
 def dplr(A):
     rank = 1
     Lambda = torch.diag(torch.diag(A))
