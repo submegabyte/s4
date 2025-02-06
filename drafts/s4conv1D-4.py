@@ -47,11 +47,18 @@ def ssmGen(delta, A, B, C, L):
     ## R is a diagonal matrix
     R = lambda z: torch.inverse(2/delta * (1-z)/(1+z) * I - Lambda) ## N x N
     
+    ## cauchy products 
+    ## turn lambda functions into computed matrices instead?
+    CRB = lambda z: Cts @ R(z) @ B ## 1 x 1
     QR = lambda z: Q.conj().T @ R(z) ## 1 x N
+    RP = lambda z: R(z) @ P ## N x 1
+    CRP = lambda z: Cts @ RP(z) ## N x 1
+    QRP = lambda z: QR(z) @ P ## N x 1
+    QRB = lambda z: QR(z) @ B ## N x 1
 
     ## woodbury identity
     ## 1 x 1 (wow, scalar?)
-    Kcz = lambda z: 2/(1+z) * (Cts @ R(z) @ B - Cts @ R(z) @ P @ torch.inverse(I1 + QR(z) @ P) @ QR(z) @ B)
+    Kcz = lambda z: 2/(1+z) * (CRB(z) - CRP(z) @ torch.inverse(I1 + QRP(z)) @ QRB(z))
 
     ## ifft, Lemma C.2
     Kc = torch.empty(L, dtype=torch.cfloat)

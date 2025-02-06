@@ -11,7 +11,8 @@ https://iclr-blog-track.github.io/2022/03/25/annotated-s4/#part-3-s4-in-practice
 ### Implemented
 1. SSM Convolution Kernel
 2. Woodbury correction
+3. Cauchy Kernel (sort of?)
 3. Inverse FFT
 
 ### To be implemented
-Cauchy Kernel
+Training and Inference
